@@ -24,8 +24,10 @@ const login = async (req, res) => {
 
 const signUp = async (req, res) => {
     try {
-        const { name, email, password } = req.body;
-        if (!name || !email || !password) {
+        const { username, email, password } = req.body;
+        console.log(req.body);
+
+        if (!username || !email || !password) {
             return res.status(400).json({ success: false, message: "Please enter all fields" });
         }
         const userExists = await User.findOne({
@@ -34,8 +36,8 @@ const signUp = async (req, res) => {
         if (userExists) {
             return res.status(400).json({ success: true, message: "User already exists" });
         }
-        const user = await User.create({ name, email, password });
-        res.status(201).json({ success: true, user });
+        const user = await User.create({ username, email, password });
+        res.status(201).json({ success: true, user, message: "Account created successfully" });
     } catch (error) {
         console.error(error);
         res.status(500).json({ success: false, message: "Server Error" });
