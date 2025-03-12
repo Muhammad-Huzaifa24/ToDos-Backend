@@ -4,6 +4,7 @@ import { router as userRoutes } from "./src/components/user/routes.js";
 import dotenv from "dotenv";
 import { connectDB } from "./src/db/index.js";
 import cors from "cors"
+import { createTestAccount } from "./src/utils/test-user.js"
 
 // configuration
 dotenv.config();
@@ -26,6 +27,7 @@ app.use("/api/user", userRoutes);
 	try {
 		// Connect to the database
 		await connectDB();
+		// createTestAccount();
 		// Start the server
 		app.listen(port, () => {
 			console.log(`Server is running on port ${port}`);
