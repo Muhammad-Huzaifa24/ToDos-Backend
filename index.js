@@ -24,6 +24,13 @@ app.use(
 	})
 );
 
+
+// **TESTING ROUTE**
+app.get("/test", (req, res) => {
+	res.json({ message: "Test route is working!" });
+});
+
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
