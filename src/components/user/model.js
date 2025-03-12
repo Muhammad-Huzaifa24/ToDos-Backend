@@ -19,6 +19,10 @@ const userSchema = new mongoose.Schema(
             required: true,
             select: false,
         },
+        profilePicture: {
+            type: String,
+            default: ""
+        },
         resetPasswordToken: String,
         resetPasswordExpire: Date,
         isOtpVerified: {

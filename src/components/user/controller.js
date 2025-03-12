@@ -117,4 +117,29 @@ const resetPassword = async (req, res) => {
     res.status(200).json({ success: true, message: "Password updated successfully" });
 }
 
-export { login, signUp, forgotPassword, verifyOTP, resetPassword }
+const uploadImage = async (req, res) => {
+    try {
+        const { userId } = req.user;
+        console.log(req.body);
+
+        if (!req.file) return res.status(400).json({ message: "No image uploaded!" });
+
+        // Cloudinary provides the secure URL
+        const imageUrl = req.file.path;  // FIXED: req.file.path is already secure_url
+
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            { profilePicture: imageUrl },  // Save URL
+            { new: true }
+        );
+
+        if (!updatedUser) return res.status(404).json({ message: "User not found!" });
+
+        res.json({ profilePicture: updatedUser.profilePicture });
+    } catch (error) {
+        console.error("Image Upload Error:", error);
+        res.status(500).json({ success: false, message: "Image upload failed", error });
+    }
+}
+
+export { login, signUp, forgotPassword, verifyOTP, resetPassword, uploadImage }
