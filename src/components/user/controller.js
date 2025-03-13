@@ -135,7 +135,7 @@ const uploadImage = async (req, res) => {
 
         if (!updatedUser) return res.status(404).json({ message: "User not found!" });
 
-        res.json({ profilePicture: updatedUser.profilePicture });
+        res.json({ message: 'Picture uploaded successfull', profilePicture: updatedUser.profilePicture });
     } catch (error) {
         console.error("Image Upload Error:", error);
         res.status(500).json({ success: false, message: "Image upload failed", error });
