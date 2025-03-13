@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import { connectDB } from "./src/db/index.js";
 import cors from "cors"
 import { createTestAccount } from "./src/utils/test-user.js"
+import { errorHandler } from "./src/middleware/error.middleware.js"
 
 // configuration
 dotenv.config();
@@ -37,6 +38,10 @@ app.use(express.urlencoded({ extended: true }));
 // routes
 app.use("/api", toDoListRoutes);
 app.use("/api/user", userRoutes);
+
+
+app.use(errorHandler);  // ✅ This ensures all errors are handled properly
+
 
 // error handler
 (async () => {
